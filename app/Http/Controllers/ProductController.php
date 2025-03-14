@@ -2,81 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    // Tampilkan Semua Produk
     public function index()
     {
         $products = Product::all();
-        return view('index', compact('products'));
+        return view('products.index', compact('products'));
     }
 
-    // Form Tambah Produk
     public function create()
     {
-        return view('create');
+        return view('products.create');
     }
 
-    // Simpan Produk ke Database
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required|numeric',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'price' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Upload Gambar
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('product-images', 'public');
+            $imagePath = $request->file('image')->store('images', 'public');
         }
 
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
-            'image' => $imagePath
+            'image' => $imagePath,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
     }
 
-    // Form Edit Produk
     public function edit(Product $product)
     {
-        return view('edit', compact('product'));
+        return view('products.edit', compact('product'));
     }
 
-    // Update Produk
     public function update(Request $request, Product $product)
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required|numeric',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'price' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Cek apakah ada file baru
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('product-images', 'public');
-            $product->image = $imagePath;
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $product->image = $request->file('image')->store('images', 'public');
         }
 
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
+            'image' => $product->image,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui!');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate');
     }
 
-    // Hapus Produk
     public function destroy(Product $product)
     {
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus!');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus');
     }
 }
