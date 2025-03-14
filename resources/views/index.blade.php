@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <title>Outfitly</title>
 
-    <!-- Bootstrap CSS (opsional buat button biar rapih) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0e4d7; /* Coklat muda */
+            background-color: #f0e4d7;
             padding: 20px;
         }
 
@@ -62,11 +59,17 @@
 
     <h1>Outfitly</h1>
 
-    <!-- Tombol Aksi -->
     <div class="mb-4">
-        <a href="{{ route('cart.index') }}" class="add-btn me-2" style="background-color: green;">Lihat Keranjang</a>
-        <a href="{{ route('products.create') }}" class="add-btn">Tambah Produk</a>
+        <a href="#" class="add-btn me-2" style="background-color: green;">Lihat Keranjang</a>
+        <!-- Tombol Tambah Produk dihapus sementara -->
     </div>
+
+    <!-- Notifikasi -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <!-- Slider Product -->
     <div class="swiper mySwiper">
@@ -74,41 +77,25 @@
             @foreach ($products as $product)
                 <div class="swiper-slide">
                     <div class="product-card">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-                        <h3>{{ $product->name }}</h3>
-                        <p>Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        <img src="{{ asset($product['image']) }}" alt="{{ $product['name'] }}">
+                        <h3>{{ $product['name'] }}</h3>
+                        <p>Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
 
-                        <div class="d-flex justify-content-center gap-2 mb-2">
-                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin hapus produk ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm">Hapus</button>
-                            </form>
-                        </div>
-
-                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                        <form action="{{ route('cart.add', $product['name']) }}" method="POST">
                             @csrf
-                            <button class="btn btn-primary btn-sm w-100">Tambah ke Keranjang</button>
+                            <button type="submit" class="btn btn-primary btn-sm w-100">Tambah ke Keranjang</button>
                         </form>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <!-- Navigasi Panah -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
-
-        <!-- Pagination Bulat -->
         <div class="swiper-pagination"></div>
     </div>
 
-    <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-    <!-- Swiper Config -->
     <script>
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 4,
@@ -123,18 +110,9 @@
                 prevEl: ".swiper-button-prev",
             },
             breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 15,
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20,
-                },
+                320: { slidesPerView: 1, spaceBetween: 10 },
+                768: { slidesPerView: 2, spaceBetween: 15 },
+                1024: { slidesPerView: 4, spaceBetween: 20 },
             }
         });
     </script>

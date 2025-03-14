@@ -1,22 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\FavoriteController;
-use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ProductController::class, 'index']);
-Route::resource('products', ProductController::class);
-Route::post('/favorite/{id}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
-
-// Keranjang
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
