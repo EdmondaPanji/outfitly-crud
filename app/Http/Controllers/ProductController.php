@@ -21,22 +21,18 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
             'price' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $imagePath = null;
+        // Simpan gambar jika ada
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+            $data['image'] = $request->file('image')->store('images', 'public');
         }
 
-        Product::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'image' => $imagePath,
-        ]);
+        Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
     }
@@ -48,24 +44,21 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required',
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
             'price' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // Hapus gambar lama jika ada gambar baru
         if ($request->hasFile('image')) {
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
-            $product->image = $request->file('image')->store('images', 'public');
+            $data['image'] = $request->file('image')->store('images', 'public');
         }
 
-        $product->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'image' => $product->image,
-        ]);
+        $product->update($data);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate');
     }
@@ -76,6 +69,7 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
+
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus');
     }
 }

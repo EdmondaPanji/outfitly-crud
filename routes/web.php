@@ -13,3 +13,6 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
