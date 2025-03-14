@@ -15,23 +15,23 @@
                     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="nama_produk" class="form-label">Nama Produk</label>
-                            <input type="text" class="form-control @error('nama_produk') is-invalid @enderror" id="nama_produk" name="nama_produk" value="{{ old('nama_produk') }}" required>
-                            @error('nama_produk')
+                            <label for="name" class="form-label">Nama Produk</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+                            @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
-                            <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" required>
-                            @error('harga')
+                            <label for="price" class="form-label">Harga</label>
+                            <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}" required>
+                            @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="gambar" class="form-label">Gambar Produk</label>
-                            <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar" required>
-                            @error('gambar')
+                            <label for="image" class="form-label">Gambar Produk</label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                            @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -39,7 +39,7 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <a href="{{ url('/') }}" class="text-decoration-none">← Kembali</a>
+                        <a href="{{ route('products.index') }}" class="text-decoration-none">← Kembali</a>
                     </div>
                 </div>
             </div>
