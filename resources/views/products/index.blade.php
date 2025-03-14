@@ -22,18 +22,6 @@
             font-weight: bold;
         }
 
-        .add-btn {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .add-btn:hover {
-            background-color: #0056b3;
-        }
-
         .swiper {
             width: 100%;
             padding-top: 20px;
@@ -48,6 +36,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
         .product-card img {
@@ -58,24 +47,31 @@
             border-radius: 10px;
         }
 
-        .product-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
 
-        .product-card p {
-            font-weight: bold;
-            color: #333;
+        .favorite-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: gray;
+            transition: fill 0.3s ease;
+        }
+
+        .favorite-btn.active svg {
+            fill: red;
         }
 
         .actions {
             display: flex;
             gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .swiper-button-next, .swiper-button-prev {
-            color: #000;
         }
     </style>
 </head>
@@ -94,6 +90,9 @@
             @foreach ($products as $product)
                 <div class="swiper-slide">
                     <div class="product-card">
+                        <button class="favorite-btn" onclick="toggleFavorite(this, {{ $product->id }})">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </button>
                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
 
                         <h3>{{ $product->name }}</h3>
@@ -101,7 +100,6 @@
 
                         <div class="actions">
                             <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
                             <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin hapus produk ini?')">
                                 @csrf
                                 @method('DELETE')
@@ -111,7 +109,7 @@
 
                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
                             @csrf
-                            <button class="btn btn-success btn-sm w-100">Tambah ke Keranjang</button>
+                            <button class="btn btn-success btn-sm w-100 mt-2">Tambah ke Keranjang</button>
                         </form>
                     </div>
                 </div>
@@ -157,7 +155,24 @@
                 },
             }
         });
-    </script>
 
+        function toggleFavorite(button, productId) {
+            button.classList.toggle('active');
+            fetch(`/favorite/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json'
+                },
+            }).then(response => response.json())
+            .then(data => console.log(data.message));
+        }
+    </script>
 </body>
 </html>
+
+
+
+
+
+

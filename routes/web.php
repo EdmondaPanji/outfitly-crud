@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FavoriteController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index']);
 Route::resource('products', ProductController::class);
+Route::post('/favorite/{id}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
+
 
 // Keranjang
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
