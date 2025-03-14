@@ -110,6 +110,7 @@
                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
                             @csrf
                             <button class="btn btn-success btn-sm w-100 mt-2">Tambah ke Keranjang</button>
+                            <button class="btn btn-success btn-sm w-100 mt-2">Tambah ke Keranjang</button>
                         </form>
                     </div>
                 </div>
