@@ -35,6 +35,7 @@
             justify-content: space-between;
             height: 100%;
             width: 100%;
+            position: relative;
         }
 
         .product-card img {
@@ -61,6 +62,24 @@
         .swiper-button-next, .swiper-button-prev {
             color: #333;
         }
+
+        .heart-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            fill: none;
+            stroke: black;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .heart-icon.active {
+            fill: red;
+            stroke: red;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +100,11 @@
             @foreach ($products as $product)
                 <div class="swiper-slide">
                     <div class="product-card">
+                        <!-- Ikon hati -->
+                        <svg class="heart-icon" onclick="toggleFavorite(this, {{ $product['id'] }})" viewBox="0 0 24 24">
+                            <path d="M12 21s-6.5-4.6-9-9.3C1 7.6 3.6 4 7.3 4c2 0 3.7 1.2 4.7 3 1-1.8 2.7-3 4.7-3C20.4 4 23 7.6 21 11.7c-2.5 4.7-9 9.3-9 9.3z"/>
+                        </svg>
+
                         <img src="{{ asset($product['image']) }}" alt="{{ $product['name'] }}">
                         <h3>{{ $product['name'] }}</h3>
                         <p>Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
@@ -128,7 +152,7 @@
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 'Content-Type': 'application/json'
-            },
+            }
         })
         .then(response => response.json())
         .then(data => console.log(data.message));
