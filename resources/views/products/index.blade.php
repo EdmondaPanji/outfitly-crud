@@ -5,7 +5,6 @@
     <title>Outfitly - Produk</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
     <style>
         body {
             background-color: #f0e4d7;
@@ -14,20 +13,39 @@
         h1 {
             margin-bottom: 20px;
         }
+
+        .swiper {
+            padding: 30px 0;
+        }
+
+        .swiper-slide {
+            height: auto !important;
+            display: flex;
+            align-items: stretch;
+        }
+
         .product-card {
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 15px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
         }
+
         .product-card img {
-            max-width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 180px;
+            max-height: 180px;
+            width: auto;
+            object-fit: contain;
             margin-bottom: 10px;
             border-radius: 10px;
         }
+
         .add-btn {
             background-color: #007bff;
             color: #fff;
@@ -35,12 +53,11 @@
             border-radius: 5px;
             text-decoration: none;
         }
+
         .add-btn:hover {
             background-color: #0056b3;
         }
-        .swiper {
-            padding: 30px 0;
-        }
+
         .swiper-button-next, .swiper-button-prev {
             color: #333;
         }
@@ -82,6 +99,7 @@
     </div>
 </div>
 
+<!-- Script Swiper -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".mySwiper", {
@@ -102,25 +120,20 @@
             1024: { slidesPerView: 4, spaceBetween: 20 },
         }
     });
+
+    function toggleFavorite(button, productId) {
+        button.classList.toggle('active');
+        fetch(`/favorite/${productId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => console.log(data.message));
+    }
 </script>
 
-        function toggleFavorite(button, productId) {
-            button.classList.toggle('active');
-            fetch(`/favorite/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json'
-                },
-            }).then(response => response.json())
-            .then(data => console.log(data.message));
-        }
-    </script>
 </body>
 </html>
-
-
-
-
-
-
