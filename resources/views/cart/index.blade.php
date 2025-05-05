@@ -8,6 +8,9 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
+    <!-- Tombol Kembali ke Katalog -->
+    <a href="{{ url('/products') }}" class="btn btn-primary mb-3">Kembali ke Katalog</a>
+
     <table class="table table-bordered mt-3">
         <thead class="table-dark">
             <tr>

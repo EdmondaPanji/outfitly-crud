@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Outfitly - Produk</title>
+    <title>Outfitly</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             background-color: #f0e4d7;
             font-family: Arial, sans-serif;
-        }
-        h1 {
-            margin-bottom: 20px;
         }
 
         .swiper {
@@ -58,28 +57,6 @@
         .add-btn:hover {
             background-color: #0056b3;
         }
-
-        .swiper-button-next, .swiper-button-prev {
-            color: #333;
-        }
-
-        .heart-icon {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            fill: none;
-            stroke: black;
-            stroke-width: 2px;
-            transition: all 0.3s ease;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .heart-icon.active {
-            fill: red;
-            stroke: red;
-        }
     </style>
 </head>
 <body>
@@ -87,9 +64,10 @@
 <div class="container">
     <h1>Outfitly Produk</h1>
 
+    <!-- Tombol "Lihat Keranjang" -->
     <div class="mb-4">
-        <a href="{{ route('cart.index') }}" class="add-btn me-2" style="background-color: green;">Lihat Keranjang</a>
-    </div>
+        <a href="{{ route('cart.index') }}" class="add-btn" style="background-color: green;">Lihat Keranjang</a>
+    </div>    
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -100,14 +78,14 @@
             @foreach ($products as $product)
                 <div class="swiper-slide">
                     <div class="product-card">
-                        <!-- Ikon hati -->
-                        <svg class="heart-icon" onclick="toggleFavorite(this, {{ $product['id'] }})" viewBox="0 0 24 24">
-                            <path d="M12 21s-6.5-4.6-9-9.3C1 7.6 3.6 4 7.3 4c2 0 3.7 1.2 4.7 3 1-1.8 2.7-3 4.7-3C20.4 4 23 7.6 21 11.7c-2.5 4.7-9 9.3-9 9.3z"/>
-                        </svg>
-
+                        <!-- Gambar Produk -->
                         <img src="{{ asset($product['image']) }}" alt="{{ $product['name'] }}">
+                        
+                        <!-- Nama dan Harga Produk -->
                         <h3>{{ $product['name'] }}</h3>
                         <p>Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
+                        
+                        <!-- Tombol Tambah ke Keranjang -->
                         <form action="{{ route('cart.add', $product['id']) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-primary btn-sm w-100">Tambah ke Keranjang</button>
@@ -130,34 +108,7 @@
         slidesPerView: 4,
         spaceBetween: 20,
         loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        breakpoints: {
-            320: { slidesPerView: 1, spaceBetween: 10 },
-            768: { slidesPerView: 2, spaceBetween: 15 },
-            1024: { slidesPerView: 4, spaceBetween: 20 },
-        }
     });
-
-    function toggleFavorite(button, productId) {
-        button.classList.toggle('active');
-        fetch(`/favorite/${productId}`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => console.log(data.message));
-    }
 </script>
-
 </body>
 </html>
