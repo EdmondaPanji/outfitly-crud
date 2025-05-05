@@ -53,15 +53,24 @@
         .add-btn:hover {
             background-color: #0056b3;
         }
+
+        .cart-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
 
     <h1>Outfitly</h1>
 
+    <!-- Tombol Lihat Keranjang dengan ikon -->
     <div class="mb-4">
-        <a href="#" class="add-btn me-2" style="background-color: green;">Lihat Keranjang</a>
-        <!-- Tombol Tambah Produk dihapus sementara -->
+        <a href="#" class="add-btn me-2 d-inline-flex align-items-center" style="background-color: green;">
+            <img src="{{ asset('images/d48f3e19-bf64-4884-97c4-98fb5c8373c3.png') }}" alt="Cart" class="cart-icon">
+            Lihat Keranjang
+        </a>
     </div>
 
     <!-- Notifikasi -->

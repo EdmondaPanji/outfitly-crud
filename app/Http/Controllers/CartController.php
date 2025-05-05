@@ -20,16 +20,14 @@ class CartController extends Controller
         $product = $products[$id] ?? null;
 
         if (!$product) {
-            return redirect()->route('products.index')->with('error', 'Produk tidak ditemukan!');
+            return redirect()->route('products.index')->withErrors(['Produk tidak ditemukan!']);
         }
 
         $cart = session('cart', []);
 
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = array_merge($product, ['quantity' => 1]);
-        }
+        $cart[$id] = isset($cart[$id])
+            ? array_merge($cart[$id], ['quantity' => $cart[$id]['quantity'] + 1])
+            : array_merge($product, ['quantity' => 1]);
 
         session(['cart' => $cart]);
 
@@ -59,13 +57,9 @@ class CartController extends Controller
         $cart = session('cart', []);
 
         if (isset($cart[$id])) {
-            $quantity = $request->input('quantity', 1);
+            $quantity = max((int) $request->input('quantity', 1), 1); // Validasi jumlah minimal 1
+            $cart[$id]['quantity'] = $quantity;
 
-            if ($quantity < 1) {
-                return redirect()->route('cart.index')->with('error', 'Jumlah tidak valid!');
-            }
-
-            $cart[$id]['quantity'] = (int) $quantity;
             session(['cart' => $cart]);
         }
 
@@ -77,7 +71,7 @@ class CartController extends Controller
         $cart = session('cart', []);
 
         if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'Keranjang belanja kosong!');
+            return redirect()->route('cart.index')->withErrors(['Keranjang belanja kosong!']);
         }
 
         $subtotal = $this->calculateSubtotal($cart);
@@ -85,7 +79,7 @@ class CartController extends Controller
         return view('checkout.index', compact('cart', 'subtotal'));
     }
 
-    public function completeCheckout()
+    public function completeCheckout(Request $request)
     {
         session()->forget('cart');
         return redirect()->route('products.index')->with('success', 'Checkout berhasil! Pesanan Anda telah diproses.');
@@ -103,7 +97,7 @@ class CartController extends Controller
     }
 
     /**
-     * Get a list of products.
+     * Dapatkan daftar produk.
      *
      * @return array
      */
