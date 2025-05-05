@@ -8,13 +8,108 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart = session()->get('cart', []);
-        return view('cart.index', compact('cart'));
+        $cart = session('cart', []);
+        $subtotal = $this->calculateSubtotal($cart);
+
+        return view('cart.index', compact('cart', 'subtotal'));
     }
 
     public function add($id)
     {
-        $products = [
+        $products = $this->getProducts();
+        $product = $products[$id] ?? null;
+
+        if (!$product) {
+            return redirect()->route('products.index')->with('error', 'Produk tidak ditemukan!');
+        }
+
+        $cart = session('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = array_merge($product, ['quantity' => 1]);
+        }
+
+        session(['cart' => $cart]);
+
+        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
+    }
+
+    public function remove($id)
+    {
+        $cart = session('cart', []);
+
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session(['cart' => $cart]);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Produk dihapus dari keranjang!');
+    }
+
+    public function clear()
+    {
+        session()->forget('cart');
+        return redirect()->route('cart.index')->with('success', 'Keranjang berhasil dikosongkan!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cart = session('cart', []);
+
+        if (isset($cart[$id])) {
+            $quantity = $request->input('quantity', 1);
+
+            if ($quantity < 1) {
+                return redirect()->route('cart.index')->with('error', 'Jumlah tidak valid!');
+            }
+
+            $cart[$id]['quantity'] = (int) $quantity;
+            session(['cart' => $cart]);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Jumlah produk diperbarui!');
+    }
+
+    public function checkout()
+    {
+        $cart = session('cart', []);
+
+        if (empty($cart)) {
+            return redirect()->route('cart.index')->with('error', 'Keranjang belanja kosong!');
+        }
+
+        $subtotal = $this->calculateSubtotal($cart);
+
+        return view('checkout.index', compact('cart', 'subtotal'));
+    }
+
+    public function completeCheckout()
+    {
+        session()->forget('cart');
+        return redirect()->route('products.index')->with('success', 'Checkout berhasil! Pesanan Anda telah diproses.');
+    }
+
+    /**
+     * Hitung total harga keranjang.
+     *
+     * @param array $cart
+     * @return int
+     */
+    private function calculateSubtotal(array $cart): int
+    {
+        return array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
+    }
+
+    /**
+     * Get a list of products.
+     *
+     * @return array
+     */
+    private function getProducts(): array
+    {
+        return [
             1 => [
                 'id' => 1,
                 'name' => 'Fairy Dust Knit',
@@ -64,47 +159,5 @@ class CartController extends Controller
                 'image' => 'images/Sky Blue Top.png',
             ],
         ];
-
-        $product = $products[$id] ?? null;
-
-        if (!$product) {
-            return redirect()->route('products.index')->with('error', 'Produk tidak ditemukan!');
-        }
-
-        $cart = session()->get('cart', []);
-
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                'id' => $product['id'],
-                'name' => $product['name'],
-                'price' => $product['price'],
-                'image' => $product['image'],
-                'quantity' => 1,
-            ];
-        }
-
-        session()->put('cart', $cart);
-
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
-    }
-
-    public function remove($id)
-    {
-        $cart = session()->get('cart', []);
-
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-            session()->put('cart', $cart);
-        }
-
-        return redirect()->route('cart.index')->with('success', 'Produk dihapus dari keranjang!');
-    }
-
-    public function clear()
-    {
-        session()->forget('cart');
-        return redirect()->route('cart.index')->with('success', 'Keranjang dikosongkan!');
     }
 }

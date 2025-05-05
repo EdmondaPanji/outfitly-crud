@@ -5,11 +5,27 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 
 // Halaman Produk
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('products.index'); // Daftar semua produk
+    Route::get('/{id}', [ProductController::class, 'show'])->name('products.show'); // Detail produk
+});
 
-// Keranjang
-Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+// Halaman Keranjang
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('cart.index'); // Halaman keranjang
+    Route::post('/add/{id}', [CartController::class, 'add'])->name('cart.add'); // Tambahkan item ke keranjang
+    Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('cart.remove'); // Hapus item dari keranjang
+    Route::delete('/clear', [CartController::class, 'clear'])->name('cart.clear'); // Kosongkan keranjang
+    Route::patch('/update/{id}', [CartController::class, 'update'])->name('cart.update'); // Perbarui jumlah item di keranjang
+});
+
+// Halaman Checkout
+Route::prefix('checkout')->group(function () {
+    Route::get('/', [CartController::class, 'checkout'])->name('cart.checkout'); // Halaman checkout
+    Route::post('/complete', [CartController::class, 'completeCheckout'])->name('cart.completeCheckout'); // Proses checkout
+});
+
+// Redirect from the root URL to the products index page
+Route::get('/', function () {
+    return redirect()->route('products.index');
+});
