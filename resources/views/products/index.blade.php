@@ -9,7 +9,7 @@
 
     <style>
         body {
-            background-color: #f0e4d7;
+            background: linear-gradient(135deg, #fce3d9, #f0e4d7);
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -26,6 +26,17 @@
             font-weight: bold;
             margin-bottom: 20px;
             color: #333;
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 4px;
+            background-color: #007bff;
+            margin: 10px auto;
+            border-radius: 2px;
         }
 
         .add-btn {
@@ -62,7 +73,7 @@
             border-radius: 15px;
             box-shadow: 0 6px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -70,11 +81,13 @@
             height: 100%;
             width: 90%;
             position: relative;
+            border: 2px solid #f8f9fa;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            border-color: #007bff;
         }
 
         .product-card img {
@@ -105,6 +118,10 @@
             padding: 10px 15px;
             border-radius: 5px;
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
 
         .btn-primary:hover {
@@ -113,6 +130,13 @@
 
         .swiper-pagination-bullet-active {
             background-color: #007bff !important;
+        }
+
+        select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -128,7 +152,6 @@
         <div class="alert alert-success text-center">{{ session('success') }}</div>
     @endif
 
-    <!-- Swiper untuk Produk -->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             @foreach ($products as $product)
@@ -141,18 +164,21 @@
                         <h3>{{ $product['name'] }}</h3>
                         <p>Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
                         
-                        <!-- Dropdown Ukuran -->
+                        <!-- Dropdown Pilih Ukuran -->
                         <form action="{{ route('cart.add', $product['id']) }}" method="POST">
                             @csrf
-                            <label for="size_{{ $product['id'] }}">Pilih Ukuran:</label>
-                            <select name="size" id="size_{{ $product['id'] }}" class="form-select mb-3">
-                                @foreach ($product['sizes'] as $size)
-                                    <option value="{{ $size }}">{{ $size }}</option>
-                                @endforeach
+                            <label for="size-{{ $product['id'] }}">Pilih Ukuran:</label>
+                            <select id="size-{{ $product['id'] }}" name="size">
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
                             </select>
-
+                            
                             <!-- Tombol Tambah ke Keranjang -->
-                            <button type="submit" class="btn btn-primary btn-sm w-100">Tambah ke Keranjang</button>
+                            <button type="submit" class="btn btn-primary btn-sm w-100">
+                                <i class="fa fa-shopping-cart"></i> Tambah ke Keranjang
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -179,20 +205,6 @@
         pagination: {
             el: ".swiper-pagination", // Pagination
             clickable: true,
-        },
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
-            },
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            992: {
-                slidesPerView: 4,
-            },
         },
     });
 </script>
