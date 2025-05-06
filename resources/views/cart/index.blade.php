@@ -16,6 +16,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item['name'] }}</h5>
                                 <p class="card-text">Harga: IDR {{ number_format($item['price'], 0, ',', '.') }}</p>
+                                <p class="card-text">Ukuran: {{ $item['size'] ?? 'Tidak dipilih' }}</p> <!-- Menampilkan ukuran -->
                                 <div class="d-flex align-items-center">
                                     <!-- Tombol pengaturan jumlah -->
                                     <button class="btn btn-outline-secondary btn-sm update-cart" 

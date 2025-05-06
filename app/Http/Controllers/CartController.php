@@ -14,7 +14,7 @@ class CartController extends Controller
         return view('cart.index', compact('cart', 'subtotal'));
     }
 
-    public function add($id)
+    public function add(Request $request, $id)
     {
         $products = $this->getProducts();
         $product = $products[$id] ?? null;
@@ -26,8 +26,14 @@ class CartController extends Controller
         $cart = session('cart', []);
 
         $cart[$id] = isset($cart[$id])
-            ? array_merge($cart[$id], ['quantity' => $cart[$id]['quantity'] + 1])
-            : array_merge($product, ['quantity' => 1]);
+            ? array_merge($cart[$id], [
+                'quantity' => $cart[$id]['quantity'] + 1,
+                'size' => $request->input('size', $cart[$id]['size'] ?? null),
+            ])
+            : array_merge($product, [
+                'quantity' => 1,
+                'size' => $request->input('size', null), // Simpan ukuran yang dipilih
+            ]);
 
         session(['cart' => $cart]);
 
@@ -109,48 +115,56 @@ class CartController extends Controller
                 'name' => 'Fairy Dust Knit',
                 'price' => 180000,
                 'image' => 'images/Fairy Dust Knit.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             2 => [
                 'id' => 2,
                 'name' => 'Flora Sky Blouse',
                 'price' => 200000,
                 'image' => 'images/Flora Sky Blouse.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             3 => [
                 'id' => 3,
                 'name' => 'Lavender Charm Polo',
                 'price' => 150000,
                 'image' => 'images/Lavender Charm Polo.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             4 => [
                 'id' => 4,
                 'name' => 'Mystic Lavender Shirt',
                 'price' => 220000,
                 'image' => 'images/Mystic Lavender Shirt.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             5 => [
                 'id' => 5,
                 'name' => 'Puffy Petal Blouse',
                 'price' => 210000,
                 'image' => 'images/Puffy Petal Blouse.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             6 => [
                 'id' => 6,
                 'name' => 'Rosette Charm Blouse',
                 'price' => 230000,
                 'image' => 'images/Rosette Charm Blouse.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             7 => [
                 'id' => 7,
                 'name' => 'Sky Bloom Blouse',
                 'price' => 190000,
                 'image' => 'images/Sky Bloom Blouse.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
             8 => [
                 'id' => 8,
                 'name' => 'Sky Blue Top',
                 'price' => 170000,
                 'image' => 'images/Sky Blue Top.png',
+                'sizes' => ['S', 'M', 'L', 'XL'],
             ],
         ];
     }

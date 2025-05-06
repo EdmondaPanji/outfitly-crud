@@ -128,6 +128,7 @@
         <div class="alert alert-success text-center">{{ session('success') }}</div>
     @endif
 
+    <!-- Swiper untuk Produk -->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             @foreach ($products as $product)
@@ -140,9 +141,17 @@
                         <h3>{{ $product['name'] }}</h3>
                         <p>Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
                         
-                        <!-- Tombol Tambah ke Keranjang -->
+                        <!-- Dropdown Ukuran -->
                         <form action="{{ route('cart.add', $product['id']) }}" method="POST">
                             @csrf
+                            <label for="size_{{ $product['id'] }}">Pilih Ukuran:</label>
+                            <select name="size" id="size_{{ $product['id'] }}" class="form-select mb-3">
+                                @foreach ($product['sizes'] as $size)
+                                    <option value="{{ $size }}">{{ $size }}</option>
+                                @endforeach
+                            </select>
+
+                            <!-- Tombol Tambah ke Keranjang -->
                             <button type="submit" class="btn btn-primary btn-sm w-100">Tambah ke Keranjang</button>
                         </form>
                     </div>
@@ -170,6 +179,20 @@
         pagination: {
             el: ".swiper-pagination", // Pagination
             clickable: true,
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            },
         },
     });
 </script>
