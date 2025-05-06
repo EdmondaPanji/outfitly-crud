@@ -1,40 +1,42 @@
 @extends('layouts.app')
 
+@section('title', 'Outfitly - Checkout')
+
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Checkout</h1>
+<div class="container py-5">
+    <h1 class="text-center mb-5">Checkout</h1>
 
     @if (!empty($cart) && count($cart) > 0)
-        <div class="row">
-            <!-- Display Cart Items -->
-            @foreach ($cart as $item)
-            <div class="col-md-12 mb-3">
-                <div class="card">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-md-4">
-                            <img src="{{ asset($item['image']) }}" class="card-img" alt="{{ $item['name'] }}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $item['name'] }}</h5>
-                                <p class="card-text mb-1">Harga: <span class="fw-bold">IDR {{ number_format($item['price'], 0, ',', '.') }}</span></p>
-                                <p class="card-text mb-1">Jumlah: <span class="fw-bold">{{ $item['quantity'] }}</span></p>
-                                <p class="card-text">Total: <span class="fw-bold">IDR {{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}</span></p>
-                            </div>
-                        </div>
+        <!-- Display Cart Items -->
+        @foreach ($cart as $item)
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-3 text-center">
+                    <img src="{{ asset($item['image']) }}" class="img-fluid rounded-start p-3" alt="{{ $item['name'] }}">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">{{ $item['name'] }}</h5>
+                        <p class="card-text mb-2"><strong>Harga:</strong> IDR {{ number_format($item['price'], 0, ',', '.') }}</p>
+                        <p class="card-text mb-2"><strong>Jumlah:</strong> {{ $item['quantity'] }}</p>
+                        <p class="card-text"><strong>Total:</strong> IDR {{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
-            @endforeach
+        </div>
+        @endforeach
 
-            <!-- Display Subtotal -->
-            <div class="col-md-12 my-4">
-                <h4>Subtotal: <strong class="text-primary">IDR {{ number_format($subtotal, 0, ',', '.') }}</strong></h4>
+        <!-- Display Subtotal -->
+        <div class="card my-4 shadow-sm border-0">
+            <div class="card-body">
+                <h4 class="text-end">Subtotal: <strong class="text-primary">IDR {{ number_format($subtotal, 0, ',', '.') }}</strong></h4>
             </div>
+        </div>
 
-            <!-- Shipping Method Options -->
-            <div class="col-md-12">
-                <h5 class="mb-3">Pilih Metode Pengiriman</h5>
+        <!-- Shipping Method Options -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="mb-4">Pilih Metode Pengiriman</h5>
                 <form method="POST" action="{{ route('cart.completeCheckout') }}">
                     @csrf
                     <div class="list-group">
@@ -49,7 +51,7 @@
                         </label>
 
                         <!-- Store Pickup Option -->
-                        <label class="list-group-item d-flex justify-content-between align-items-center mt-2">
+                        <label class="list-group-item d-flex justify-content-between align-items-center mt-3">
                             <div>
                                 <input type="radio" name="shipping_method" value="store_pickup" required>
                                 <strong>Ambil di Toko</strong>
@@ -65,9 +67,14 @@
         </div>
     @else
         <!-- Empty Cart Message -->
-        <div class="col-md-12 text-center">
-            <p class="text-muted">Keranjang Anda kosong.</p>
-            <a href="{{ route('products.index') }}" class="btn btn-primary">Kembali ke Halaman Produk</a>
+        <div class="text-center py-5">
+            <div class="empty-cart-icon mb-4">
+                <i class="fa fa-shopping-cart fa-5x text-muted"></i>
+            </div>
+            <p class="text-muted fs-5">Keranjang Anda kosong. Yuk, tambahkan produk ke keranjang!</p>
+            <a href="{{ route('products.index') }}" class="btn btn-primary btn-lg">
+                <i class="fa fa-arrow-left"></i> Kembali ke Halaman Produk
+            </a>
         </div>
     @endif
 </div>
