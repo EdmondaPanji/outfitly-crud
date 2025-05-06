@@ -34,13 +34,13 @@
             display: block;
             width: 120px;
             height: 4px;
-            background-color: #007bff;
+            background-color:rgb(255, 0, 200);
             margin: 10px auto;
             border-radius: 2px;
         }
 
         .add-btn {
-            background-color: #28a745;
+            background-color: rgb(216, 102, 172);
             color: #fff;
             padding: 12px 20px;
             border-radius: 5px;
@@ -53,7 +53,7 @@
         }
 
         .add-btn:hover {
-            background-color: #218838;
+            background-color: rgb(187, 118, 196);
             color: #fff;
         }
 
@@ -87,7 +87,7 @@
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-            border-color: #007bff;
+            border-color:rgb(187, 118, 196);
         }
 
         .product-card img {
@@ -113,7 +113,7 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color:rgb(216, 102, 172);
             color: #fff;
             padding: 10px 15px;
             border-radius: 5px;
@@ -125,7 +125,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color:rgb(187, 118, 196);
         }
 
         .swiper-pagination-bullet-active {
