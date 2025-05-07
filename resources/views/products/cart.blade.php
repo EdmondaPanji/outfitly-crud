@@ -26,7 +26,7 @@
             display: block;
             width: 120px;
             height: 3px;
-            background-color: #007bff;
+            background-color:rgb(187, 118, 196);;
             margin: 10px auto;
             border-radius: 2px;
         }
@@ -101,7 +101,7 @@
             transition: 0.3s;
         }
         .btn:hover {
-            background-color: #0056b3;
+            background-color:rgb(187, 118, 196);;
         }
         .btn-danger {
             background-color: #e74c3c;

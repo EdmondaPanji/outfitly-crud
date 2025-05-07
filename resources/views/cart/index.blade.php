@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-5">
-    <h1 class="text-center mb-4">KERANJANG</h1>
+    <h1 class="text-center mb-4">Keranjang</h1>
 
     @if (!empty($cart) && count($cart) > 0)
         @foreach ($cart as $item)
@@ -70,6 +70,58 @@
         </div>
     @endif
 </div>
+
+<style>
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap');
+
+/* Heading Font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 700;
+}
+
+/* Body Font */
+body, p, span, label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+/* Subtotal */
+h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #000;
+}
+
+/* Tombol */
+.btn-primary, .btn-danger {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.btn-danger {
+    background-color: rgb(255, 82, 217); /* Pink */
+    border-color: rgb(255, 82, 217);
+}
+
+.btn-primary {
+    background-color: rgb(204, 109, 172); /* Ungu muda */
+    border-color: rgb(204, 109, 172);
+}
+
+.btn-danger:hover, .btn-primary:hover {
+    background-color: #c279ab; /* Ungu gelap */
+    border-color: #c279ab;
+}
+
+/* Background */
+body {
+    background: linear-gradient(135deg, #fce3d9, #f0e4d7);
+    margin: 0;
+    padding: 0;
+}
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

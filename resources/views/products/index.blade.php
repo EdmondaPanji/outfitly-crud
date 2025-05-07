@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -21,12 +22,13 @@
         }
 
         h1 {
-            text-align: center;
+            font-family: 'Poppins', Arial, sans-serif;
             font-size: 2.5rem;
             font-weight: bold;
-            margin-bottom: 20px;
             color: #333;
+            text-align: center;
             position: relative;
+            margin-bottom: 20px;
         }
 
         h1::after {
@@ -34,7 +36,7 @@
             display: block;
             width: 120px;
             height: 4px;
-            background-color:rgb(255, 0, 200);
+            background-color: rgb(255, 0, 200);
             margin: 10px auto;
             border-radius: 2px;
         }
@@ -68,6 +70,41 @@
             justify-content: center;
         }
 
+        /* Tombol Navigasi Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: rgb(102, 102, 255); /* Warna panah biru */
+            font-size: 24px; /* Ukuran panah */
+            width: auto; /* Sesuaikan lebar */
+            height: auto; /* Sesuaikan tinggi */
+            background: none; /* Hapus latar belakang */
+            border: none; /* Hapus border */
+            transition: transform 0.3s ease, color 0.3s ease; /* Efek transisi */
+            z-index: 10; /* Tetap di atas elemen lain */
+        }
+
+        /* Posisi tombol prev di luar slider */
+        .swiper-button-prev {
+            left: -40px; /* Jarak tombol prev ke kiri */
+        }
+
+        /* Posisi tombol next di luar slider */
+        .swiper-button-next {
+            right: -40px; /* Jarak tombol next ke kanan */
+        }
+
+        /* Hover efek tombol navigasi */
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            transform: scale(1.2); /* Memperbesar sedikit saat hover */
+            color: rgb(51, 51, 204); /* Warna hover biru lebih gelap */
+        }
+
+        /* Bullet pagination aktif */
+        .swiper-pagination-bullet-active {
+            background-color: rgb(187, 118, 196) !important; /* Bullet aktif dengan warna konsisten */
+        }
+
         .product-card {
             background-color: #fff;
             border-radius: 15px;
@@ -87,7 +124,7 @@
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-            border-color:rgb(187, 118, 196);
+            border-color: rgb(187, 118, 196);
         }
 
         .product-card img {
@@ -113,7 +150,7 @@
         }
 
         .btn-primary {
-            background-color:rgb(216, 102, 172);
+            background-color: rgb(216, 102, 172);
             color: #fff;
             padding: 10px 15px;
             border-radius: 5px;
@@ -125,11 +162,7 @@
         }
 
         .btn-primary:hover {
-            background-color:rgb(187, 118, 196);
-        }
-
-        .swiper-pagination-bullet-active {
-            background-color: #007bff !important;
+            background-color: rgb(187, 118, 196);
         }
 
         select {

@@ -78,4 +78,51 @@
         </div>
     @endif
 </div>
+
+<style>
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap');
+
+/* Heading Font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Body Font */
+body, p, span, label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #555;
+}
+
+/* Subtotal and Important Text */
+.text-primary {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #d81b60; /* Pink gelap */
+}
+
+/* Button Styling */
+.btn-primary {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    background-color: #f48fb1; /* Warna pink */
+    border-color: #f48fb1;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #ec407a; /* Pink lebih gelap */
+    border-color: #ec407a;
+}
+
+/* Background */
+body {
+    background: linear-gradient(135deg, #fce3d9, #f0e4d7);
+    margin: 0;
+    padding: 0;
+}
+</style>
 @endsection
