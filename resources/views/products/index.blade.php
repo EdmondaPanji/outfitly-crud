@@ -20,7 +20,7 @@
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', Arial, sans-serif;
             font-size: 36px;
             font-weight: 700;
             text-align: center;
@@ -29,7 +29,7 @@
 
         .add-btn {
             display: inline-block;
-            background-color: #ff7f50;
+            background-color: rgb(160, 63, 216);
             color: #fff;
             padding: 10px 20px;
             border-radius: 10px;
@@ -40,7 +40,7 @@
         }
 
         .add-btn:hover {
-            background-color: #ff6347;
+            background-color:rgb(174, 104, 214);
         }
 
         .swiper {
@@ -48,67 +48,88 @@
         }
 
         .product-card {
-            background-color: #fff;
-            border-radius: 16px;
-            padding: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.2s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        background-color: #fff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
+    /* Tetapkan tinggi minimum yang sama untuk semua kartu produk */
 
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
+    /* Kartu Produk */
+    .product-card {
+        background-color: #fff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-        .product-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 8px 0 5px;
-        }
+    /* Ketinggian Tetap untuk Gambar */
+    .product-card img {
+        max-width: 100%;
+        height: 400px; /* Tetapkan tinggi tetap */
+        object-fit: cover; /* Pangkas gambar agar sesuai */
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
 
-        .product-card p {
-            font-size: 16px;
-            margin-bottom: 12px;
-            color: #333;
-        }
+    /* Judul Produk */
+    .product-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 8px 0 5px;
+        min-height: 50px; /* Tetapkan tinggi minimum untuk teks judul */
+        line-height: 1.25; /* Membatasi jumlah baris */
+    }
 
-        .product-card form {
-            margin-top: auto;
-        }
+    /* Harga Produk */
+    .product-card p {
+        font-size: 16px;
+        margin-bottom: 12px;
+        color: #333;
+        min-height: 24px; /* Tetapkan tinggi minimum untuk harga */
+        line-height: 1.5;
+    }
 
-        .product-card select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
+    /* Tombol dan Dropdown Pilihan */
+    .product-card form {
+        margin-top: auto; /* Tempatkan dropdown dan tombol di bawah */
+    }
 
-        .product-card button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 500;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
+    .product-card select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
 
-        .product-card button:hover {
-            background-color: #0056b3;
-        }
+    .product-card button {
+        background-color: rgb(160, 63, 216);
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 500;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .product-card button:hover {
+        background-color:rgb(174, 104, 214);
+    }
 
         /* Swiper customizations */
         .swiper-button-next, .swiper-button-prev {
@@ -120,7 +141,7 @@
         }
 
         .swiper-pagination-bullet-active {
-            background-color: #ff7f50;
+            background-color:rgb(160, 63, 216);
         }
 
         @media (max-width: 768px) {

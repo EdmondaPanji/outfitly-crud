@@ -14,40 +14,47 @@
 <body>
     @yield('content')
 
-    <!-- 👇 Tambahkan footer di sini -->
+    <!-- 👇 Footer yang dirapikan -->
     <footer class="bg-light text-dark py-5 px-4 mt-5 border-top">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>Outfitly</h5>
-                    <p>Outfitly adalah toko fashion daring yang menawarkan berbagai pilihan pakaian wanita dengan gaya feminin, modern, dan elegan.</p>
-                    <div class="d-flex gap-3 fs-5">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+            <div class="row text-center text-md-start">
+                <!-- Bagian Outfitly -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold">Outfitly</h5>
+                    <p class="small">
+                        Outfitly adalah toko fashion daring yang menawarkan berbagai pilihan pakaian wanita dengan gaya feminin, modern, dan elegan.
+                    </p>
+                    <div class="d-flex justify-content-center justify-content-md-start gap-3 fs-5">
+                        <a href="#" class="text-dark"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <h5>COMPANY</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Layanan</a></li>
-                        <li><a href="#">Galeri</a></li>
-                        <li><a href="#">Karier</a></li>
+
+                <!-- Bagian Company -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold">Company</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">Tentang Kami</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">Layanan</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">Galeri</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark">Karier</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <h5>SUPPORT</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Jl. Tulip No.57, Jakarta Selatan</li>
-                        <li><i class="fas fa-phone-alt me-2"></i>0852-1057-6133</li>
-                        <li><i class="fas fa-envelope me-2"></i>admin@outfitly.co.id</li>
+
+                <!-- Bagian Support -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold">Support</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Jl. Tulip No.57, Jakarta Selatan</li>
+                        <li class="mb-2"><i class="fas fa-phone-alt me-2"></i>0852-1057-6133</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>admin@outfitly.co.id</li>
                     </ul>
                 </div>
             </div>
-            <div class="text-center mt-4 border-top pt-3">
+            <div class="text-center mt-4 border-top pt-3 small text-muted">
                 © 2025 Outfitly | Dress How You Feel.
             </div>
         </div>
