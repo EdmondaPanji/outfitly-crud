@@ -46,17 +46,30 @@
 
         <div class="text-end mt-4">
             <h4>Subtotal: <strong id="subtotal">IDR {{ number_format($subtotal, 0, ',', '.') }}</strong></h4>
-            <form method="POST" action="{{ route('cart.clear') }}" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm mt-3" 
-                        onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')">
-                    <i class="fa fa-trash"></i> Kosongkan Keranjang
-                </button>
-            </form>
-            <a href="{{ route('cart.checkout') }}" class="btn btn-primary btn-sm mt-3">
-                <i class="fa fa-shopping-cart"></i> Checkout
-            </a>
+
+            <!-- Diperbarui: Tombol kiri dan kanan -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
+                <!-- Tombol kiri -->
+                <a href="{{ route('products.index') }}" class="btn btn-primary d-flex align-items-center mb-2">
+                    <i class="fa fa-arrow-left me-2"></i> Lihat Produk
+                </a>
+
+                <!-- Tombol kanan -->
+                <div class="d-flex gap-2 flex-wrap">
+                    <form method="POST" action="{{ route('cart.clear') }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger d-flex align-items-center"
+                                onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')">
+                            <i class="fa fa-trash me-2"></i> Kosongkan Keranjang
+                        </button>
+                    </form>
+
+                    <a href="{{ route('cart.checkout') }}" class="btn btn-primary d-flex align-items-center">
+                        <i class="fa fa-shopping-cart me-2"></i> Checkout
+                    </a>
+                </div>
+            </div>
         </div>
     @else
         <div class="text-center">
@@ -65,57 +78,55 @@
             </div>
             <p class="text-muted fs-5 mb-4">Keranjang Anda kosong. Yuk, tambahkan produk ke keranjang!</p>
             <a href="{{ route('products.index') }}" class="btn btn-primary btn-lg">
-                <i class="fa fa-arrow-left"></i> Lihat Produk
+                <i class="fa fa-arrow-left me-2"></i> Lihat Produk
             </a>
         </div>
     @endif
 </div>
 
 <style>
-/* Import Font */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap');
 
-/* Heading Font */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', Arial, sans-serif;
     font-weight: 700;
 }
 
-/* Body Font */
 body, p, span, label {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }
 
-/* Subtotal */
 h4 {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: #000;
 }
 
-/* Tombol */
 .btn-primary, .btn-danger {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .btn-danger {
-    background-color: rgb(255, 82, 217); /* Pink */
+    background-color: rgb(255, 82, 217);
     border-color: rgb(255, 82, 217);
+    color: white;
 }
 
 .btn-primary {
-    background-color: rgb(204, 109, 172); /* Ungu muda */
+    background-color: rgb(204, 109, 172);
     border-color: rgb(204, 109, 172);
+    color: white;
 }
 
 .btn-danger:hover, .btn-primary:hover {
-    background-color: #c279ab; /* Ungu gelap */
+    background-color: #c279ab;
     border-color: #c279ab;
+    color: white;
 }
 
-/* Background */
 body {
     background: linear-gradient(135deg, #fce3d9, #f0e4d7);
     margin: 0;

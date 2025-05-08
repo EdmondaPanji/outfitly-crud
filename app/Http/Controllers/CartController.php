@@ -91,6 +91,35 @@ class CartController extends Controller
         return redirect()->route('products.index')->with('success', 'Checkout berhasil! Pesanan Anda telah diproses.');
     }
 
+    public function updateQuantity(Request $request, $id)
+{
+    $cart = session()->get('cart', []);
+
+    if (!isset($cart[$id])) {
+        return response()->json(['error' => 'Item tidak ditemukan'], 404);
+    }
+
+    $change = (int) $request->input('quantityChange', 0);
+    $cart[$id]['quantity'] += $change;
+
+    // Jangan izinkan quantity < 1
+    if ($cart[$id]['quantity'] < 1) {
+        unset($cart[$id]);
+    } else {
+        session()->put('cart', $cart);
+    }
+
+    $newSubtotal = collect($cart)->sum(function ($item) {
+        return $item['price'] * $item['quantity'];
+    });
+
+    return response()->json([
+        'newQuantity' => $cart[$id]['quantity'] ?? 0,
+        'newSubtotal' => $newSubtotal,
+    ]);
+}
+
+
     /**
      * Hitung total harga keranjang.
      *

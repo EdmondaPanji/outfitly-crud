@@ -29,3 +29,5 @@ Route::prefix('checkout')->group(function () {
 Route::get('/', function () {
     return redirect()->route('products.index');
 });
+
+Route::patch('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
