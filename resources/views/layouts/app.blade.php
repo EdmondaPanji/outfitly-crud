@@ -29,7 +29,7 @@
             <div class="col-md-4">
                 <h5 class="fw-bold mb-3">Outfitly</h5>
                 <p class="small mb-3">
-                    Outfitly adalah toko fashion daring yang menawarkan berbagai pilihan pakaian wanita dengan gaya feminin, modern, dan elegan.
+                    Outfitly adalah toko fashion yang menawarkan berbagai pilihan pakaian wanita dengan gaya feminin, modern, dan elegan.
                 </p>
                 <div class="d-flex align-items-center gap-3 mt-3 fs-5">
                     <a href="https://www.facebook.com/fashionweek/" target="_blank" class="text-dark"><i class="fab fa-facebook-f"></i></a>
