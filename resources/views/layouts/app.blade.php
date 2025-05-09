@@ -31,12 +31,12 @@
                 <p class="small mb-3">
                     Outfitly adalah toko fashion daring yang menawarkan berbagai pilihan pakaian wanita dengan gaya feminin, modern, dan elegan.
                 </p>
-                <div class="d-flex gap-3 fs-5">
-                    <a href="#" class="text-dark"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-dark"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="text-dark"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="text-dark"><i class="fab fa-youtube"></i></a>
+                <div class="d-flex align-items-center gap-3 mt-3 fs-5">
+                    <a href="https://www.facebook.com/fashionweek/" target="_blank" class="text-dark"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/colorbox?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-dark"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/0852-1057-6133" target="_blank" class="text-dark"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.tiktok.com/@kanzeoniiraisyah?_t=ZS-8wCUIgVc9vL&_r=1" target="_blank" class="text-dark"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/@colorbox_id" target="_blank" class="text-dark"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
 
