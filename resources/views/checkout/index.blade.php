@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <!-- Shipping Method Options -->
+        <!-- Shipping and Payment Form -->
         <div class="card shadow-sm border-0">
             <div class="card-body">
                 <h5 class="mb-4">Pilih Metode Pengiriman</h5>
@@ -45,7 +45,7 @@
                             <div>
                                 <input type="radio" name="shipping_method" value="home_delivery" required>
                                 <strong>Kirim ke Alamat</strong>
-                                <p class="mb-0 text-muted">Dapatkan potongan ongkir IDR 10.000 minimum pembelian IDR 150.000 ke seluruh Indonesia</p>
+                                <p class="mb-0 text-muted">Dapatkan gratis ongkir minimum pembelian IDR 250.000 ke seluruh Indonesia</p>
                             </div>
                             <span class="text-primary fw-bold">IDR 10.000</span>
                         </label>
@@ -58,6 +58,27 @@
                                 <p class="mb-0 text-muted">Gratis biaya pengiriman untuk pick up di toko terdekat</p>
                             </div>
                             <span class="text-primary fw-bold">Gratis</span>
+                        </label>
+                    </div>
+
+                    <!-- Payment Method Options -->
+                    <h5 class="mt-4 mb-3">Pilih Metode Pembayaran</h5>
+                    <div class="list-group">
+                        <label class="list-group-item">
+                            <input type="radio" name="payment_method" value="bank_transfer" required>
+                            Transfer Bank
+                        </label>
+                        <label class="list-group-item">
+                            <input type="radio" name="payment_method" value="credit_card">
+                            Kartu Kredit / Debit
+                        </label>
+                        <label class="list-group-item">
+                            <input type="radio" name="payment_method" value="e_wallet">
+                            E-Wallet (OVO, GoPay, dll)
+                        </label>
+                        <label class="list-group-item">
+                            <input type="radio" name="payment_method" value="cod">
+                            Bayar di Tempat (COD)
                         </label>
                     </div>
 
