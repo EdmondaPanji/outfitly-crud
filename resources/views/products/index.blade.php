@@ -29,7 +29,7 @@
 
         .add-btn {
             display: inline-block;
-            background-color: rgb(160, 63, 216);
+            background-color:  #ff52d9;
             color: #fff;
             padding: 10px 20px;
             border-radius: 10px;
@@ -40,7 +40,7 @@
         }
 
         .add-btn:hover {
-            background-color:rgb(174, 104, 214);
+            background-color:rgb(253, 115, 223);
         }
 
         .swiper {
@@ -117,7 +117,7 @@
     }
 
     .product-card button {
-        background-color: rgb(160, 63, 216);
+        background-color:  #ff52d9;
         color: #fff;
         border: none;
         padding: 8px 12px;
@@ -128,7 +128,7 @@
     }
 
     .product-card button:hover {
-        background-color:rgb(174, 104, 214);
+        background-color:rgb(253, 115, 223);
     }
 
         /* Swiper customizations */
